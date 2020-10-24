@@ -1,0 +1,31 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "shopping cart",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6CRISTIAN/shopping-cart.git"
+  },
+  "keywords": [
+    "shopping",
+    "e-commerce",
+    "sales"
+  ],
+  "author": "Cristian Gómez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6CRISTIAN/shopping-cart/issues"
+  },
+  "homepage": "https://github.com/6CRISTIAN/shopping-cart#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
