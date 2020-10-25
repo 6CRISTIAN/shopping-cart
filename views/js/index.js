@@ -1,3 +1,4 @@
+// const url = 'https://bsale-shopping-cart-qacoeou6pq-uc.a.run.app'
 const url = 'http://localhost:3000'
 
 let productSelected = []
@@ -8,6 +9,17 @@ const seeker = document.querySelector('#seeker')
 const loader = document.querySelector('.loader-container')
 const productContainer = document.querySelector('.product-container')
 const summaryContainer = document.querySelector('.summary-container')
+const noDataEl = document.querySelector('.no-data-container')
+const errorEl = document.querySelector('.error-container')
+const restartButtons = document.querySelectorAll('.restart')
+
+setTimeout(_ => initEventListeners(), 0)
+
+function initEventListeners() {
+    seekerEventListener()
+    restartEventListener()
+    summaryListener()
+}
 
 function seekerEventListener() {
     let delayTimer
@@ -17,7 +29,21 @@ function seekerEventListener() {
             displayProducts(event.target.value)
         }, 600)
     })
-} seekerEventListener()
+}
+
+function restartEventListener() {
+    restartButtons.forEach(restartBtn => {
+        restartBtn.addEventListener('click', () => {
+            restartProducts(restartBtn)
+        })
+    })
+}
+
+function restartProducts(restartBtn) {
+    seeker.value = ''
+    hideOrDisplayElem(restartBtn.closest('.row'), true)
+    displayProducts()
+}
 
 function displayProducts(filter) {
     productContainer.innerHTML = ''
@@ -28,13 +54,24 @@ function displayProducts(filter) {
     fetch(url + uri).then(response => response.json())
         .then(data => {
             loader.classList.add('d-none')
-            this.renderProducts(data)
+            if (data) {
+                hideOrDisplayElem(errorEl, true)
+                if (data.length < 1)
+                    hideOrDisplayElem(noDataEl, false)
+                else
+                    this.renderProducts(data)
+            }
         })
         .catch(err => {
+            hideOrDisplayElem(errorEl, true)
             console.log('·> ' + filter, err)
-            displayProducts()
         })
 } displayProducts()
+
+function hideOrDisplayElem(el, hide) {
+    if (hide && !el.classList.contains('d-none')) el.classList.add('d-none')
+    else if (!hide) el.classList.remove('d-none')
+}
 
 function renderProducts(products) {
     if (products[0]?.p) products = products.map(record => { return { ...record.p } })
@@ -67,7 +104,6 @@ function updateTotalProducts() { totalProductsEl.innerHTML = productSelectedCoun
 
 const summaryBtn = document.querySelector('.btn-shopping-cart')
 function summaryListener() { summaryBtn.addEventListener('click', displaySummary) }
-summaryListener()
 
 function displaySummary() {
     if (productSelectedCounter <= 0 || !summaryContainer.classList.contains('d-none')) return

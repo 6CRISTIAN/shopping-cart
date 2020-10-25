@@ -11,6 +11,44 @@ body {
 button {
     outline: none !important;
 }
+.restart {
+    transition: 300ms;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 12px;
+    width: 30%;
+    background-color: transparent;
+    border: solid 0.9px #ffbe00;
+    color: #ffbe00;
+}
+.restart.err {
+    border: solid 0.9px #ec6565;
+    color: #ec6565;
+}
+.restart.err:hover {
+    background-color: #ec6565;
+    color: #ffffff;
+}
+.restart.n-data:hover {
+    background-color: #ffbe00;
+    color: #ffffff;
+}
+.error-container,
+.no-data-container {
+    margin-top: 15%;
+}
+.fa-exclamation-circle,
+.fa-bug {
+    font-size: 21px;
+}
+.no-data {
+    font-size: 15px;
+    color: #ffbe00;
+}
+.error {
+    font-size: 15px;
+    color: #ec6565;
+}
 .pointer {
     cursor: pointer;
 }
@@ -26,7 +64,8 @@ button {
 }
 .fas.fa-search:hover,
 .btn-decrease:hover,
-.btn-add:hover {
+.btn-add:hover,
+.restart:active {
     transition: 300ms;
     transform: scale(1.1);
 }
