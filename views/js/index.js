@@ -1,10 +1,11 @@
 const url = 'http://localhost:3000'
-const seeker = document.querySelector('#seeker')
 
 let productSelected = []
 let productSelectedCounter = 0
 
 var totalPurchase = document.querySelector('.total-purchase')
+const seeker = document.querySelector('#seeker')
+const loader = document.querySelector('.loader-container')
 const productContainer = document.querySelector('.product-container')
 const summaryContainer = document.querySelector('.summary-container')
 
@@ -12,15 +13,21 @@ function seekerEventListener() {
     let delayTimer
     seeker.addEventListener('input', (event) => {
         clearTimeout(delayTimer)
-        delayTimer = setTimeout(_ => { console.log(event.target.value) }, 1500)
+        delayTimer = setTimeout(_ => {
+            displayProducts(event.target.value)
+        }, 300)
     })
 } seekerEventListener()
 
-function displayProducts() {
-    const loader = document.querySelector('.loader-container')
-    fetch(url + '/products').then(response => response.json())
+function displayProducts(filter) {
+    productContainer.innerHTML = ''
+    loader.classList.remove('d-none')
+    let uri = filter
+        ? '/products?filter=' + filter
+        : '/products'
+    fetch(url + uri).then(response => response.json())
         .then(data => {
-            loader.parentNode.removeChild(loader)
+            loader.classList.add('d-none')
             this.renderProducts(data)
         })
         .catch(err => console.log('err', err))

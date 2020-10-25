@@ -16,11 +16,14 @@ module.exports = class Products {
     async getProducts() {
         this.router.get('/', function (req, res) {
             const connection = mysql.createConnection(connectDB)
-            connection.query('SELECT * FROM bsale_test.product', function (error, results) {
+            const filter = req.query.filter
+            const query = filter
+                ? `SELECT p.id, p.name, p.url_image, p.price FROM bsale_test.product AS p INNER JOIN bsale_test.category as c ON p.category=c.id WHERE p.name regexp '${filter}' OR c.name regexp '${filter}';`
+                : 'SELECT * FROM bsale_test.product'
+            connection.query(query, function (error, results) {
                 if (error) res.send(error)
                 else {
                     res.send(results)
-                    console.log('··· retrieved')
                     connection.end()
                 }
             })
