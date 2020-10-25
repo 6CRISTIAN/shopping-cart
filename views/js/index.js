@@ -15,7 +15,7 @@ function seekerEventListener() {
         clearTimeout(delayTimer)
         delayTimer = setTimeout(_ => {
             displayProducts(event.target.value)
-        }, 300)
+        }, 600)
     })
 } seekerEventListener()
 
@@ -30,7 +30,10 @@ function displayProducts(filter) {
             loader.classList.add('d-none')
             this.renderProducts(data)
         })
-        .catch(err => console.log('err', err))
+        .catch(err => {
+            console.log('·> ' + filter, err)
+            displayProducts()
+        })
 } displayProducts()
 
 function renderProducts(products) {
@@ -46,9 +49,9 @@ function renderProducts(products) {
     setTimeout(_ => refreshEventListener(), 0)
 }
 
-const home = document.querySelector('.logo')
+const homeBtn = document.querySelector('.logo')
 function homeEventListener() {
-    home.addEventListener('click', () => {
+    homeBtn.addEventListener('click', () => {
         if (productContainer.classList.contains('d-none')) {
             productContainer.classList.remove('d-none')
             summaryContainer.classList.add('d-none')
@@ -66,8 +69,7 @@ function summaryListener() { summaryBtn.addEventListener('click', displaySummary
 summaryListener()
 
 function displaySummary() {
-    if (productSelectedCounter <= 0 ||
-        !summaryContainer.classList.contains('d-none')) return
+    if (productSelectedCounter <= 0 || !summaryContainer.classList.contains('d-none')) return
     productContainer.classList.add('d-none')
     summaryContainer.classList.remove('d-none')
     let total = 0

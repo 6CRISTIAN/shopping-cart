@@ -18,15 +18,19 @@ module.exports = class Products {
             const connection = mysql.createConnection(connectDB)
             const filter = req.query.filter
             const query = filter
-                ? `SELECT p.id, p.name, p.url_image, p.price FROM bsale_test.product AS p INNER JOIN bsale_test.category as c ON p.category=c.id WHERE p.name regexp '${filter}' OR c.name regexp '${filter}';`
-                : 'SELECT * FROM bsale_test.product'
-            connection.query(query, function (error, results) {
-                if (error) res.send(error)
-                else {
-                    res.send(results)
-                    connection.end()
-                }
-            })
+                ? 'select p.id, p.name, p.url_image, p.price from bsale_test.product as p inner join bsale_test.category as c ' +
+                `on p.category=c.id where UPPER(p.name) regexp '${filter}' or c.name regexp '${filter}'`
+                : 'select * from bsale_test.product'
+            setTimeout(_ => {
+                connection.query(query, function (error, results) {
+                    if (error) res.send(error)
+                    else {
+                        res.send(results)
+                        connection.end()
+                    }
+                    console.log(query)
+                })
+            }, 0)
         })
     }
 }
