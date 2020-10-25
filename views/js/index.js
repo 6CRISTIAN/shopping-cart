@@ -37,6 +37,7 @@ function displayProducts(filter) {
 } displayProducts()
 
 function renderProducts(products) {
+    if (products[0]?.p) products = products.map(record => { return { ...record.p } })
     products.forEach(pro => {
         productContainer.innerHTML += `
             <product-card class="col-xs-3 p-3 fadeIn"

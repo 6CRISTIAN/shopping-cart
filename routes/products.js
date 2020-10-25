@@ -18,17 +18,16 @@ module.exports = class Products {
             const connection = mysql.createConnection(connectDB)
             const filter = req.query.filter
             const query = filter
-                ? 'select p.id, p.name, p.url_image, p.price from bsale_test.product as p inner join bsale_test.category as c ' +
-                `on p.category=c.id where UPPER(p.name) regexp '${filter}' or c.name regexp '${filter}'`
+                ? { sql: `select * from bsale_test.product as p inner join bsale_test.category as c on p.category=c.id where p.name regexp '${filter}' or c.name regexp '${filter}'`, nestTables: true }
                 : 'select * from bsale_test.product'
             setTimeout(_ => {
-                connection.query(query, function (error, results) {
+                connection.query(query, (error, results) => {
                     if (error) res.send(error)
                     else {
                         res.send(results)
                         connection.end()
+                        console.log(query)
                     }
-                    console.log(query)
                 })
             }, 0)
         })
