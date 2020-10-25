@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/grid.css">
+    <title>shopping cart</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row navbar center-xs middle-xs">
+            <div class="col-xs-3 logo">
+                BSALE
+            </div>
+            <div class="col-xs-5">
+                <div class="row center-xs middle-xs">
+                    <div class="col-xs-1 txt-r">
+                        <i class="fas fa-search pointer"></i>
+                    </div>
+                    <div class="col-xs-11">
+                        <input id="seeker" type="text" placeholder="Buscar">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 d-center ml-3">
+                <button class="btn-shopping-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+                <span class="total-products"></span>
+            </div>
+        </div>
+
+        <div class="row center-xs loader-container mt-5">
+            <div class="col-xs-12 mt-5 fadeIn">
+                <div class="loader mt-5">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-container d-none">
+            <div class="row center-xs">
+                <div class="col-xs-1 txt-r">Total</div>
+                <div class="col-xs-1 txt-l">$<span class="total-purchase">0</span></div>
+            </div>
+        </div>
+        <div class="row product-container center-xs pt-4"></div>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
