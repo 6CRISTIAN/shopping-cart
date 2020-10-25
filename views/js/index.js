@@ -1,5 +1,5 @@
-// const url = 'https://bsale-shopping-cart-qacoeou6pq-uc.a.run.app'
-const url = 'http://localhost:3000'
+const url = 'https://bsale-shopping-cart-qacoeou6pq-uc.a.run.app'
+// const url = 'http://localhost:3000'
 
 let productSelected = []
 let productSelectedCounter = 0
@@ -63,8 +63,8 @@ function displayProducts(filter) {
             }
         })
         .catch(err => {
-            hideOrDisplayElem(errorEl, true)
-            console.log('·> ' + filter, err)
+            hideOrDisplayElem(errorEl, false)
+            console.log('···> filter ' + filter, err)
         })
 } displayProducts()
 
